@@ -1,7 +1,7 @@
 ### mockoon api
-@api_url=http://localhost:3001/api
+@api_url=http://localhost:3001/api/v1
 
-### register
+### TODO register
 POST {{api_url}}/auth/register
 Content-Type: application/json
 
@@ -11,7 +11,7 @@ Content-Type: application/json
     "password":"password"
 }
 
-### login
+### TODO login
 POST {{api_url}}/auth/login
 Content-Type: application/json
 
@@ -20,18 +20,18 @@ Content-Type: application/json
     "password":"test!31"
 }
 
-### user info
+### TODO user info
 GET {{api_url}}/auth/me
 Authorization: Bearer jwt
 
-### user info
+### user info 
 GET {{api_url}}/user/1
-Authorization: Bearer jwt
-
+# Authorization: Bearer jwt
 
 ### list rentals
 GET {{api_url}}/rentals
 Authorization: Bearer jwt
+
 
 ### one rental
 GET {{api_url}}/rentals/1
@@ -43,27 +43,39 @@ Authorization: Bearer jwt
 Content-Type: application/json
 
 {
-    "email":"test@test.com",
-    "password":"test!31"
+    "name":"hAPI ",
+    "surface": 97,
+    "price": 99999.97,
+    "picture":"https://picsum.photos/seed/hapi/200/300",
+    "description":"maison d'APIculteur",
+    "owner_id":1
 }
 
-### insert rental
+### TODO update rental
 PUT {{api_url}}/rentals/1
 Authorization: Bearer jwt
 Content-Type: application/json
 
 {
-    "email":"test@test.com",
-    "password":"test!31"
+    "name":"villa à la playa"
 }
 
-### sends a message
-POST {{api_url}}/messages
+### update rental
+PUT {{api_url}}/rentals/1
 Authorization: Bearer jwt
 Content-Type: application/json
 
 {
-    "user_id":"pour",
-    "message":"my message",
-    "rental_id":"123"
+    "name":"villa à la plage"
+}
+
+### sends a message
+POST {{api_url}}/messages
+Content-Type: application/json
+# Authorization: Bearer jwt
+
+{
+    "writer_id":"1",
+    "message":"j'ai vu des lAPIns",
+    "rental_id":"3"
 }
