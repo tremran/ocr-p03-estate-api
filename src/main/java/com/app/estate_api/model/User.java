@@ -9,6 +9,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,7 +24,7 @@ import lombok.Data;
 @Data
 public class User implements UserDetails{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
     private Integer id;
     
@@ -33,6 +35,7 @@ public class User implements UserDetails{
     private String name;
 
     @Column
+    @JsonIgnore
     private String password;
 
     @CreationTimestamp
@@ -49,6 +52,7 @@ public class User implements UserDetails{
     }
 
     @Override
+    @JsonIgnore
     public String getUsername() {
         return email;
     }

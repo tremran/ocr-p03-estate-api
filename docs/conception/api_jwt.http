@@ -1,7 +1,6 @@
-@token=eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoidXNlciIsImV4cCI6MTc3OTQ2NDI3OSwiaWF0IjoxNzc5Mzc3ODc5fQ.mNdfSJmAEBMFAYkmijcX-CIUI3RMwMvJpOdH7mnvkxw
 
 ### register
-POST http://localhost:3001/api/v1/register
+POST http://localhost:3001/api/v1/auth/register
 Content-Type: application/json
 
 {
@@ -10,7 +9,7 @@ Content-Type: application/json
     "password" : "greg"
 }
 ### login
-POST http://localhost:3001/api/v1/login
+POST http://localhost:3001/api/v1/auth/login
 Content-Type: application/json
 
 {
@@ -19,14 +18,10 @@ Content-Type: application/json
 }
 
 ### login failed
-POST http://localhost:3001/api/v1/login
+POST http://localhost:3001/api/v1/auth/login
 Content-Type: application/json
 
 {
     "email" : "greg@greg.fr",
     "password" : "failed"
 }
-
-### ressources
-GET http://localhost:3001/api/v1/rentals
-Authorization: Bearer {{token}}
