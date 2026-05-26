@@ -1,0 +1,69 @@
+### mockoon api
+@api_url=http://localhost:3001/api
+
+### register
+POST {{api_url}}/auth/register
+Content-Type: application/json
+
+{
+    "name":"name",
+    "email":"email",
+    "password":"password"
+}
+
+### login
+POST {{api_url}}/auth/login
+Content-Type: application/json
+
+{
+    "email":"test@test.com",
+    "password":"test!31"
+}
+
+### user info
+GET {{api_url}}/auth/me
+Authorization: Bearer jwt
+
+### user info
+GET {{api_url}}/user/1
+Authorization: Bearer jwt
+
+
+### list rentals
+GET {{api_url}}/rentals
+Authorization: Bearer jwt
+
+### one rental
+GET {{api_url}}/rentals/1
+Authorization: Bearer jwt
+
+### insert rental
+POST {{api_url}}/rentals
+Authorization: Bearer jwt
+Content-Type: application/json
+
+{
+    "email":"test@test.com",
+    "password":"test!31"
+}
+
+### insert rental
+PUT {{api_url}}/rentals/1
+Authorization: Bearer jwt
+Content-Type: application/json
+
+{
+    "email":"test@test.com",
+    "password":"test!31"
+}
+
+### sends a message
+POST {{api_url}}/messages
+Authorization: Bearer jwt
+Content-Type: application/json
+
+{
+    "user_id":"pour",
+    "message":"my message",
+    "rental_id":"123"
+}
