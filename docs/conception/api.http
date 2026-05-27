@@ -71,13 +71,13 @@ Content-Type: application/json
 #     "name":"villa à la plage"
 # }
 
-# ### sends a message
-# POST {{api_url}}/messages
-# Content-Type: application/json
-# # Authorization: Bearer {{jwt_token}}
+### sends a message
+POST {{api_url}}/messages
+Content-Type: application/json
+Authorization: Bearer {{jwt_token}}
 
-# {
-#     "writer_id":"1",
-#     "message":"j'ai vu des lAPIns",
-#     "rental_id":"3"
-# }
+{
+    "writer_id":"1",
+    "message":"j'ai vu des lAPIns",
+    "rental_id":"3"
+}
