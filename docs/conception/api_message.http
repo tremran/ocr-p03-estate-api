@@ -1,0 +1,32 @@
+### mockoon api
+@api_url=http://localhost:3002/api/messages
+@jwt_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJncmVnQGdyZWcuZnIiLCJpYXQiOjE3Nzk4NzM3NTEsImV4cCI6MTc3OTkwOTc1MX0.myHTWbKIS2iQS60yCwkAy2rn5x8ph_W_eGeMadEhlkU
+
+@jwt_invalid_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJncmVnQGdyZWcuZnIiLCJpYXQiOjE3Nzk4NzYyMDYsImV4cCI6MTc3OTg3NjIwNn0.HgOviu53ukTxZgySDdX8vzEZ7UVcL2bEo4SXGMuN67M
+
+
+### sends a message
+POST {{api_url}}
+Content-Type: application/json
+Authorization: Bearer {{jwt_token}}
+
+{
+    "user_id":"1",
+    "message":"j'ai vu des lAPIns",
+    "rental_id":"3"
+}
+
+##############
+### ERRORS ###
+##############
+
+
+### TODO sends a message - data missing => 400
+POST {{api_url}}
+Content-Type: application/json
+Authorization: Bearer {{jwt_token}}
+
+{
+    "message":"my message",
+    "rental_id":"123"
+}

@@ -41,18 +41,21 @@ public class RentalController {
     }
 
     @PostMapping("")
-    public String create(@RequestBody RentalCreateDto rentalCreateDto) throws Exception {
+    public ResponseEntity<HashMap<String,String>> create(@RequestBody RentalCreateDto rentalCreateDto) throws Exception {
         rentalService.saveRental(rentalCreateDto);
-        return "Rental created !";
+        HashMap<String, String> message = new HashMap<>();
+        message.put("message", "Rental created !");
+        return ResponseEntity.ok(message);
     }
 
     @PutMapping("/{rental_id}")
-    public String updateRental(@PathVariable("rental_id") final Integer id, @RequestBody RentalCreateDto rentalCreateDto) throws Exception{
+    public ResponseEntity<HashMap<String,String>> updateRental(@PathVariable("rental_id") final Integer id, @RequestBody RentalCreateDto rentalCreateDto) throws Exception{
         Rental rental = rentalService.getRental(id);
             
         rentalService.updateRental(rental, rentalCreateDto);
-
-        return "Rental updated !";
+        HashMap<String, String> message = new HashMap<>();
+        message.put("message", "Rental updated !");
+        return ResponseEntity.ok(message);
     }
     
 }

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.app.estate_api.dto.MessageConverter;
 import com.app.estate_api.dto.MessageCreateDto;
+import com.app.estate_api.exception.BadRequestException;
 import com.app.estate_api.model.Message;
 import com.app.estate_api.repository.MessageRepository;
 
@@ -20,6 +21,15 @@ public class MessageService {
 
     public Message createMessage(MessageCreateDto messageDto) throws Exception {
 
+        if (messageDto.getUser_id() == null) {
+            throw new BadRequestException("User id is missing" );
+        }
+        if (messageDto.getMessage() == null || messageDto.getMessage().isBlank()) {
+            throw new BadRequestException("Message is missing");
+        }
+        if (messageDto.getRental_id() == null) {
+            throw new BadRequestException("Rental id is missing");
+        }
         Message savedMessage = converter.createFromMessageCreateDto(messageDto);
         messageRepository.save(savedMessage);
 

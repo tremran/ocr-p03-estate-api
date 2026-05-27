@@ -1,7 +1,6 @@
 package com.app.estate_api.dto;
 
 import java.util.Date;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,11 +33,11 @@ public class MessageConverter {
         if (messageCreateDto.getMessage() != null) {
             message.setMessage(messageCreateDto.getMessage());
         }
-        if (messageCreateDto.getWriterId() != null) {
-            message.setWriter(getWriter(messageCreateDto.getWriterId()));
+        if (messageCreateDto.getUser_id() != null) {
+            message.setWriter(getWriter(messageCreateDto.getUser_id()));
         }
-        if (messageCreateDto.getRentalId() != null) {
-            message.setRental(rentalService.getRental(messageCreateDto.getRentalId()));
+        if (messageCreateDto.getRental_id() != null) {
+            message.setRental(rentalService.getRental(messageCreateDto.getRental_id()));
         }
     }
 
@@ -49,21 +48,16 @@ public class MessageConverter {
         messageCreateDto.setId(message.getId());
         messageCreateDto.setMessage(message.getMessage());
 
-        messageCreateDto.setWriterId(message.getWriter().getId());
-        messageCreateDto.setRentalId(message.getRental().getId());
+        messageCreateDto.setUser_id(message.getWriter().getId());
+        messageCreateDto.setRental_id(message.getRental().getId());
 
         return messageCreateDto;
     }
 
     private User getWriter(Integer writerId) throws Exception
     {
-        Optional<User> writerOpt = userService.getUser(writerId);
+        return userService.getUser(writerId);
 
-        if (writerOpt.isPresent())
-        {
-            return writerOpt.get();
-        }
-        throw new Exception("Writer not found with id [" + writerId + "]");
     }
     
 }

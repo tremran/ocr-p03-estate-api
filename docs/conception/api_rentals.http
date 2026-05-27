@@ -1,0 +1,93 @@
+### mockoon api
+@api_url=http://localhost:3002/api/rentals
+@jwt_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJncmVnQGdyZWcuZnIiLCJpYXQiOjE3Nzk4NzM3NTEsImV4cCI6MTc3OTkwOTc1MX0.myHTWbKIS2iQS60yCwkAy2rn5x8ph_W_eGeMadEhlkU
+
+@jwt_invalid_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJncmVnQGdyZWcuZnIiLCJpYXQiOjE3Nzk4NzYyMDYsImV4cCI6MTc3OTg3NjIwNn0.HgOviu53ukTxZgySDdX8vzEZ7UVcL2bEo4SXGMuN67M
+
+### SECURED
+GET {{api_url}}
+Authorization: Bearer {{jwt_invalid_token}}
+
+### list rentals
+GET {{api_url}}
+Authorization: Bearer {{jwt_token}}
+
+
+### one rental
+GET {{api_url}}/2
+Authorization: Bearer {{jwt_token}}
+
+### insert rental
+POST {{api_url}}
+Authorization: Bearer {{jwt_token}}
+Content-Type: application/json
+
+{
+    "name":"hAPI ",
+    "surface": 97,
+    "price": 99999.97,
+    "picture":"https://picsum.photos/seed/hapi/200/300",
+    "description":"maison d'APIculteur",
+    "owner_id":1
+}
+
+### TODO update rental
+PUT {{api_url}}/1
+Authorization: Bearer {{jwt_token}}
+Content-Type: application/json
+
+{
+    "name":"villa à l'API"
+}
+
+### update rental
+PUT {{api_url}}/1
+Authorization: Bearer {{jwt_token}}
+Content-Type: application/json
+
+{
+    "name":"villa à la plage"
+}
+
+
+##############
+### ERRORS ###
+##############
+
+### TODO not found rental => 404
+GET {{api_url}}
+Authorization: Bearer {{jwt_invalid_token}}
+
+### TODO not found rental => 404
+GET {{api_url}}/0
+Authorization: Bearer {{jwt_token}}
+
+### rental_id not valid  => 400
+GET {{api_url}}/toto
+Authorization: Bearer {{jwt_token}}
+
+
+### TODO insert rental - missing data => 400
+### TODO insert rental - owner not found => 404
+POST {{api_url}}
+Authorization: Bearer {{jwt_token}}
+Content-Type: application/json
+
+{
+    "name":"hAPI ",
+    "surface": 97,
+    "price": 99999.97,
+    "picture":"https://picsum.photos/seed/hapi/200/300",
+    "description":"maison d'APIculteur",
+    "owner_id":1
+}
+
+### TODO insert rental - data missing => 400
+PUT {{api_url}}/1
+Authorization: Bearer {{jwt_token}}
+Content-Type: application/json
+
+{
+    "email":"test@test.com",
+    "password":"test!31"
+}

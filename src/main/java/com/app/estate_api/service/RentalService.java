@@ -1,13 +1,10 @@
 package com.app.estate_api.service;
 
-import java.lang.classfile.ClassFile.Option;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.app.estate_api.dto.RentalConverter;

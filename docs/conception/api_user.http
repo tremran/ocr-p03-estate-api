@@ -1,0 +1,25 @@
+### mockoon api
+@api_url=http://localhost:3002/api/user
+@jwt_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJncmVnQGdyZWcuZnIiLCJpYXQiOjE3Nzk4NzM3NTEsImV4cCI6MTc3OTkwOTc1MX0.myHTWbKIS2iQS60yCwkAy2rn5x8ph_W_eGeMadEhlkU
+
+@jwt_invalid_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJncmVnQGdyZWcuZnIiLCJpYXQiOjE3Nzk4NzYyMDYsImV4cCI6MTc3OTg3NjIwNn0.HgOviu53ukTxZgySDdX8vzEZ7UVcL2bEo4SXGMuN67M
+
+### SECURED
+
+GET {{api_url}}/1
+Authorization: Bearer {{jwt_invalid_token}}
+
+### user info 
+GET {{api_url}}/1
+Authorization: Bearer {{jwt_token}}
+
+### ERRORS ###
+
+
+### TODO user info NOT FOUND => 404
+GET {{api_url}}/0
+Authorization: Bearer {{jwt_token}}
+
+### user id not valid => 400
+GET {{api_url}}/toto
+Authorization: Bearer {{jwt_token}}

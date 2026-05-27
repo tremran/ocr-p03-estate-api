@@ -1,0 +1,63 @@
+### mockoon api
+@api_url=http://localhost:3002/api/auth
+@jwt_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJncmVnQGdyZWcuZnIiLCJpYXQiOjE3Nzk4NzM3NTEsImV4cCI6MTc3OTkwOTc1MX0.myHTWbKIS2iQS60yCwkAy2rn5x8ph_W_eGeMadEhlkU
+@jwt_invalid_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJncmVnQGdyZWcuZnIiLCJpYXQiOjE3Nzk4NzYyMDYsImV4cCI6MTc3OTg3NjIwNn0.HgOviu53ukTxZgySDdX8vzEZ7UVcL2bEo4SXGMuN67M
+
+### register
+POST {{api_url}}/register
+Content-Type: application/json
+
+{
+    "name":"user",
+    "email":"user3@user.fr",
+    "password":"password"
+}
+
+### login
+POST {{api_url}}/login
+Content-Type: application/json
+
+{
+    "email":"greg@greg.fr",
+    "password":"greg"
+}
+
+### user info
+GET {{api_url}}/auth/me
+Authorization: Bearer {{jwt_token}}
+
+##############
+### ERRORS ###
+##############
+
+
+### register missing info
+POST {{api_url}}/register
+Content-Type: application/json
+
+{
+    "email":"email",
+    "password":"password"
+}
+
+### login wrong password
+POST {{api_url}}/login
+Content-Type: application/json
+
+{
+    "email":"user@user.fr",
+    "password":"wrong password"
+}
+
+### login wrong email
+POST {{api_url}}/login
+Content-Type: application/json
+
+{
+    "email":"unknown@email.fr",
+    "password":"wrong password"
+}
+
+### user info => 401
+GET {{api_url}}/auth/me
+Authorization: Bearer {{jwt_invalid_token}}

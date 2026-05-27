@@ -6,8 +6,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.app.estate_api.dto.UserLoginDto;
+import com.app.estate_api.dto.UserLoginResponseDto;
 import com.app.estate_api.dto.UserRegisterDto;
+import com.app.estate_api.exception.BadRequestException;
 import com.app.estate_api.model.User;
 import com.app.estate_api.repository.UserRepository;
 
@@ -22,8 +23,18 @@ public class AuthenticationService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    public User registerUser(UserRegisterDto input) {
+    public User registerUser(UserRegisterDto input) throws Exception{
         User user = new User();
+        if (input.getName() == null || input.getName().isBlank()) {
+            throw new BadRequestException("Name is missing" );
+        }
+        if (input.getEmail() == null || input.getEmail().isBlank()) {
+            throw new BadRequestException("Email is missing");
+        }
+        if (input.getPassword() == null || input.getPassword().isBlank()) {
+            throw new BadRequestException("Password is missing");
+        }
+
         user.setName(input.getName());
         user.setEmail(input.getEmail());
         user.setPassword(passwordEncoder.encode(input.getPassword()));
@@ -31,7 +42,7 @@ public class AuthenticationService {
         return userRepository.save(user);
     }
 
-    public User authenticate(UserLoginDto input) {
+    public User authenticate(UserLoginResponseDto input) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         input.getEmail(),
