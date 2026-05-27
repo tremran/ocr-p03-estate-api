@@ -67,7 +67,7 @@ public class RentalConverter {
 
         Format dateFormatter = new SimpleDateFormat("yyyy/MM/dd");
         rentalCreateDto.setCreated_at(dateFormatter.format(rental.getCreatedAt()));
-        rentalCreateDto.setUdpated_at(dateFormatter.format(rental.getUpdatedAt()));
+        rentalCreateDto.setUpdated_at(dateFormatter.format(rental.getUpdatedAt()));
 
         return rentalCreateDto;
     }

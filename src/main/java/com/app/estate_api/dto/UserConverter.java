@@ -23,7 +23,7 @@ public class UserConverter {
 
         Format dateFormatter = new SimpleDateFormat("yyyy/MM/dd");
         userResponseDto.setCreated_at(dateFormatter.format(user.getCreatedAt()));
-        userResponseDto.setUdpated_at(dateFormatter.format(user.getUpdatedAt()));
+        userResponseDto.setUpdated_at(dateFormatter.format(user.getUpdatedAt()));
 
         return userResponseDto;
     }

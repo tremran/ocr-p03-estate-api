@@ -9,6 +9,6 @@ public class UserResponseDto {
     private String email;
     private String name;
     private String created_at;
-    private String udpated_at;
+    private String updated_at;
     
 }
