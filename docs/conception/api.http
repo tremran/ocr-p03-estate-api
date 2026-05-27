@@ -1,5 +1,5 @@
 ### mockoon api
-@api_url=http://localhost:3001/api/v1
+@api_url=http://localhost:3001/api
 @jwt_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJncmVnQGdyZWcuZnIiLCJpYXQiOjE3Nzk4NjcxNDAsImV4cCI6MTc3OTg3MDc0MH0.JYfh415pKyf4MzQYCLQ5hGmju36ur2N-rUu0bbI8ky8
 
 

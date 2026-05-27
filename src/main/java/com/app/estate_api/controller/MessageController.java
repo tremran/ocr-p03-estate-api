@@ -13,7 +13,7 @@ import com.app.estate_api.dto.MessageCreateDto;
 import com.app.estate_api.service.MessageService;
 
 @RestController
-@RequestMapping("/api/v1/messages")
+@RequestMapping("/api/messages")
 public class MessageController {
     
     @Autowired

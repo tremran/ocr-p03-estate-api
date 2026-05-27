@@ -17,7 +17,7 @@ import com.app.estate_api.model.User;
 import com.app.estate_api.service.AuthenticationService;
 import com.app.estate_api.service.JwtService;
 
-@RequestMapping("/api/v1/auth")
+@RequestMapping("/api/auth")
 @RestController
 public class AuthController {
 

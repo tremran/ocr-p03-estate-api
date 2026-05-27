@@ -24,7 +24,7 @@ public class AuthConfiguration {
     @Order(1)
     public SecurityFilterChain authFilterChain(HttpSecurity http) throws Exception {
         http
-            .securityMatcher("/api/v1/auth/register", "/api/v1/auth/login")
+            .securityMatcher("/api/auth/register", "/api/auth/login")
             .csrf(csrf -> csrf.disable())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> {
@@ -39,7 +39,7 @@ public class AuthConfiguration {
     @Order(2)
     public SecurityFilterChain apiFilterChain(HttpSecurity http) throws Exception {
         http
-            .securityMatcher("/api/v1/**")
+            .securityMatcher("/api/**")
             .csrf(csrf -> csrf.disable())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> {

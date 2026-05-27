@@ -20,7 +20,7 @@ import com.app.estate_api.model.Rental;
 import com.app.estate_api.service.RentalService;
 
 @RestController
-@RequestMapping("/api/v1/rentals")
+@RequestMapping("/api/rentals")
 public class RentalController {
     
     @Autowired

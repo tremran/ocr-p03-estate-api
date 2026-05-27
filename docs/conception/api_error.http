@@ -1,5 +1,5 @@
 ### mockoon api
-@api_url=http://localhost:3001/api/v1
+@api_url=http://localhost:3001/api
 
 ### TODO register missing info
 POST {{api_url}}/auth/register

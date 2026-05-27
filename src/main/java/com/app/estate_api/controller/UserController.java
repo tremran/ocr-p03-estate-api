@@ -14,7 +14,7 @@ import com.app.estate_api.model.User;
 import com.app.estate_api.service.UserService;
 
 @RestController
-@RequestMapping("/api/v1/user")
+@RequestMapping("/api/user")
 public class UserController {
     
     @Autowired
