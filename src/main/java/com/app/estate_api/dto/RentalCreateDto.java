@@ -13,6 +13,8 @@ public class RentalCreateDto {
     private String picture;
     private String description;
     private Integer owner_id;
+    private String created_at;
+    private String udpated_at;
 
     @JsonIgnore
     public Integer getOwnerId(){

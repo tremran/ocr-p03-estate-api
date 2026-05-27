@@ -1,7 +1,10 @@
 package com.app.estate_api.dto;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +24,13 @@ public class RentalConverter {
         Rental rental = new Rental();
 
         rental.setCreatedAt(new Date());
+        rental.setUpdatedAt(new Date());
         this.updateFromRentalCreateDto(rental, rentalCreateDto);
 
         return rental;
     }
     public void updateFromRentalCreateDto(Rental rental, RentalCreateDto rentalCreateDto) throws Exception
     {
-        rental.setUpdatedAt(new Date());
         
         if (rentalCreateDto.getName() != null) {
             rental.setName(rentalCreateDto.getName());
@@ -63,16 +66,39 @@ public class RentalConverter {
 
         rentalCreateDto.setOwnerId(rental.getOwner().getId());
 
+        Format dateFormatter = new SimpleDateFormat("yyyy/MM/dd");
+        rentalCreateDto.setCreated_at(dateFormatter.format(rental.getCreatedAt()));
+        rentalCreateDto.setUdpated_at(dateFormatter.format(rental.getUpdatedAt()));
+
         return rentalCreateDto;
     }
+    public RentalResponseDto convertToRentalResponseDto(Rental rental) {
 
-    public Iterable<RentalCreateDto> convertListToRentalCreateDto(Iterable<Rental> rentalList) {
-        ArrayList<RentalCreateDto> rentalCreateDtoList = new ArrayList<RentalCreateDto>();
+        RentalResponseDto rentalResponseDto = new RentalResponseDto();
+        
+        rentalResponseDto.setId(rental.getId());
+        rentalResponseDto.setName(rental.getName());
+        rentalResponseDto.setSurface(rental.getSurface());
+        rentalResponseDto.setPrice(rental.getPrice());
+        rentalResponseDto.setPicture(rental.getPicture());
+        rentalResponseDto.setDescription(rental.getDescription());
+
+        rentalResponseDto.setOwner_id(rental.getOwner().getId());
+
+        Format dateFormatter = new SimpleDateFormat("yyyy/MM/dd");
+        rentalResponseDto.setCreated_at(dateFormatter.format(rental.getCreatedAt()));
+        rentalResponseDto.setUpdated_at(dateFormatter.format(rental.getUpdatedAt()));
+
+        return rentalResponseDto;
+    }
+
+    public List<RentalResponseDto> convertListToRentalResponseDto(Iterable<Rental> rentalList) {
+        ArrayList<RentalResponseDto> rentalResponseDtoList = new ArrayList<RentalResponseDto>();
 
         for (Rental currentRental: rentalList ) {
-            rentalCreateDtoList.add(convertToRentalCreateDto(currentRental));
+            rentalResponseDtoList.add(convertToRentalResponseDto(currentRental));
         }
-        return rentalCreateDtoList;
+        return rentalResponseDtoList;
         
     }
     private User getOwner(Integer ownerId) throws Exception

@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.estate_api.model.Message;
-import com.app.estate_api.model.Rental;
 import com.app.estate_api.model.User;
 import com.app.estate_api.service.RentalService;
 import com.app.estate_api.service.UserService;
@@ -39,7 +38,7 @@ public class MessageConverter {
             message.setWriter(getWriter(messageCreateDto.getWriterId()));
         }
         if (messageCreateDto.getRentalId() != null) {
-            message.setRental(getRental(messageCreateDto.getRentalId()));
+            message.setRental(rentalService.getRental(messageCreateDto.getRentalId()));
         }
     }
 
@@ -67,14 +66,4 @@ public class MessageConverter {
         throw new Exception("Writer not found with id [" + writerId + "]");
     }
     
-    private Rental getRental(Integer rentalId) throws Exception
-    {
-        Optional<Rental> rentalOpt = rentalService.getRental(rentalId);
-
-        if (rentalOpt.isPresent())
-        {
-            return rentalOpt.get();
-        }
-        throw new Exception("rental not found with id [" + rentalId + "]");
-    }
 }

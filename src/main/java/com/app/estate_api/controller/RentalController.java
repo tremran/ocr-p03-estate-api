@@ -1,10 +1,9 @@
 package com.app.estate_api.controller;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,10 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.estate_api.dto.RentalCreateDto;
+import com.app.estate_api.dto.RentalResponseDto;
 import com.app.estate_api.model.Rental;
 import com.app.estate_api.service.RentalService;
 
@@ -27,40 +26,33 @@ public class RentalController {
     private RentalService rentalService;
 
     @GetMapping("")
-    public ResponseEntity<List<Rental>> list() {
-        List<Rental> rentalList = rentalService.getRentalList();
+    public ResponseEntity<HashMap<String, List<RentalResponseDto>>> list() {
+        List<RentalResponseDto> rentalList = rentalService.getRentalList();
+        HashMap<String, List<RentalResponseDto>> rentalListMap = new HashMap<String, List<RentalResponseDto>>();
 
-        return ResponseEntity.ok(rentalList);
+        rentalListMap.put("rentals", rentalList);
+        return ResponseEntity.ok(rentalListMap);
     }
 
     @GetMapping("/{rental_id}")
-    public ResponseEntity<Rental> read(@PathVariable("rental_id") final Integer id) {
-        Optional<Rental> rental = rentalService.getRental(id);
-        if (rental.isPresent())
-        {
-            return ResponseEntity.ok(rental.get());
-        }
-        return null;
+    public ResponseEntity<RentalResponseDto> read(@PathVariable("rental_id") final Integer id) throws Exception {
+        RentalResponseDto rental = rentalService.getRentalResponse(id);
+        return ResponseEntity.ok(rental);
     }
 
     @PostMapping("")
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Rental> create(@RequestBody RentalCreateDto rentalDto) throws Exception {
-        return new ResponseEntity<Rental>(rentalService.saveRental(rentalDto), HttpStatus.CREATED);
+    public String create(@RequestBody RentalCreateDto rentalCreateDto) throws Exception {
+        rentalService.saveRental(rentalCreateDto);
+        return "Rental created !";
     }
 
     @PutMapping("/{rental_id}")
-    public ResponseEntity<Rental> updateRental(@PathVariable("rental_id") final Integer id, @RequestBody RentalCreateDto rentalCreateDto) throws Exception{
-        Optional<Rental> rentalOpt = rentalService.getRental(id);
-        if(rentalOpt.isPresent()) {
-
-            Rental currentRental = rentalOpt.get();
+    public String updateRental(@PathVariable("rental_id") final Integer id, @RequestBody RentalCreateDto rentalCreateDto) throws Exception{
+        Rental rental = rentalService.getRental(id);
             
-            rentalService.updateRental(currentRental, rentalCreateDto);
-            return ResponseEntity.ok(currentRental);
-        } else {
-            return null;
-        }
+        rentalService.updateRental(rental, rentalCreateDto);
+
+        return "Rental updated !";
     }
     
 }
