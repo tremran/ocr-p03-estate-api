@@ -1,7 +1,5 @@
 package com.app.estate_api.configuration;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,9 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 
 @Configuration
@@ -25,22 +20,6 @@ public class AuthConfiguration {
     @Autowired
     private JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    // @Bean
-    // @Order(1)
-    // public SecurityFilterChain authMeFilterChain(HttpSecurity http) throws Exception {
-    //     http
-    //         .securityMatcher("/api/v1/auth/me")
-    //         .csrf(csrf -> csrf.disable())
-    //         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-    //         .authorizeHttpRequests(auth -> {
-    //             auth.anyRequest().authenticated();
-    //         })
-    //         .authenticationProvider(authenticationProvider)
-    //         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-    //         ;
-
-    //     return http.build();
-    // }
     @Bean
     @Order(1)
     public SecurityFilterChain authFilterChain(HttpSecurity http) throws Exception {
