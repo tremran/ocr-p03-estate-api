@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.app.estate_api.model.Rental;
@@ -17,7 +16,7 @@ public class RentalConverter {
     @Autowired
     private UserService userService;
 
-    public Rental createFromRentalCreateDto(RentalCreateDto rentalCreateDto) throws UsernameNotFoundException
+    public Rental createFromRentalCreateDto(RentalCreateDto rentalCreateDto) throws Exception
     {
         Rental rental = new Rental();
 
@@ -26,7 +25,7 @@ public class RentalConverter {
 
         return rental;
     }
-    public void updateFromRentalCreateDto(Rental rental, RentalCreateDto rentalCreateDto) throws UsernameNotFoundException
+    public void updateFromRentalCreateDto(Rental rental, RentalCreateDto rentalCreateDto) throws Exception
     {
         rental.setUpdatedAt(new Date());
         
@@ -76,7 +75,7 @@ public class RentalConverter {
         return rentalCreateDtoList;
         
     }
-    private User getOwner(Integer ownerId) throws UsernameNotFoundException
+    private User getOwner(Integer ownerId) throws Exception
     {
         Optional<User> ownerOpt = userService.getUser(ownerId);
 
@@ -84,6 +83,6 @@ public class RentalConverter {
         {
             return ownerOpt.get();
         }
-        throw new UsernameNotFoundException("Owner not found with id [" + ownerId + "]");
+        throw new Exception("Owner not found with id [" + ownerId + "]");
     }
 }

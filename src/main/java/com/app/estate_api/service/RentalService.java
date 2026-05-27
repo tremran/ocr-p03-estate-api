@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.app.estate_api.dto.RentalConverter;
@@ -35,12 +34,13 @@ public class RentalService {
         return rentalRepository.findById(id);
     }
 
-    public Rental saveRental(RentalCreateDto rentalDto) throws UsernameNotFoundException {
+    public Rental saveRental(RentalCreateDto rentalDto) throws Exception {
         Rental savedRental = converter.createFromRentalCreateDto(rentalDto);
         rentalRepository.save(savedRental);
         return savedRental;
     }
-    public Rental updateRental(Rental rentalToUpdate, RentalCreateDto rentalDto) throws UsernameNotFoundException {
+
+    public Rental updateRental(Rental rentalToUpdate, RentalCreateDto rentalDto) throws Exception {
         converter.updateFromRentalCreateDto(rentalToUpdate, rentalDto);
     
         rentalRepository.save(rentalToUpdate);
