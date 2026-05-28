@@ -48,9 +48,10 @@ public class RentalService {
     }
 
     public RentalResponseDto saveRental(RentalCreateDto rentalDto) throws Exception {
-        Rental savedRental = converter.createFromRentalCreateDto(rentalDto);
-        rentalRepository.save(savedRental);
-        return converter.convertToRentalResponseDto(savedRental);
+        Rental convertedRental = converter.createFromRentalCreateDto(rentalDto);
+        Rental savedRental = rentalRepository.save(convertedRental);
+        RentalResponseDto rentalResponseDto = converter.convertToRentalResponseDto(savedRental);
+        return rentalResponseDto;
     }
 
     public Rental updateRental(Rental rentalToUpdate, RentalCreateDto rentalDto) throws Exception {

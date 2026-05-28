@@ -11,17 +11,25 @@ import org.springframework.stereotype.Service;
 
 import com.app.estate_api.model.Rental;
 import com.app.estate_api.model.User;
+import com.app.estate_api.service.AuthenticationService;
 import com.app.estate_api.service.UserService;
 
 @Service
 public class RentalConverter {
+    @Autowired
+    private AuthenticationService authenticationService;
     @Autowired
     private UserService userService;
 
     public Rental createFromRentalCreateDto(RentalCreateDto rentalCreateDto) throws Exception
     {
         Rental rental = new Rental();
+        User loggedUser = getLoggedUser();
 
+        // fetch data from database to ensure data integrity and to set relationships
+        User owner = userService.getUser(loggedUser.getId());
+
+        rental.setOwner(owner);
         rental.setCreatedAt(new Date());
         rental.setUpdatedAt(new Date());
         this.updateFromRentalCreateDto(rental, rentalCreateDto);
@@ -47,30 +55,8 @@ public class RentalConverter {
             rental.setDescription(rentalCreateDto.getDescription());
         }
 
-        if (rentalCreateDto.getOwnerId() != null) {
-            rental.setOwner(getOwner(rentalCreateDto.getOwnerId()));
-        }
     }
 
-    public RentalCreateDto convertToRentalCreateDto(Rental rental) {
-
-        RentalCreateDto rentalCreateDto = new RentalCreateDto();
-        
-        rentalCreateDto.setId(rental.getId());
-        rentalCreateDto.setName(rental.getName());
-        rentalCreateDto.setSurface(rental.getSurface());
-        rentalCreateDto.setPrice(rental.getPrice());
-        rentalCreateDto.setPicture(rental.getPicture());
-        rentalCreateDto.setDescription(rental.getDescription());
-
-        rentalCreateDto.setOwnerId(rental.getOwner().getId());
-
-        Format dateFormatter = new SimpleDateFormat("yyyy/MM/dd");
-        rentalCreateDto.setCreated_at(dateFormatter.format(rental.getCreatedAt()));
-        rentalCreateDto.setUpdated_at(dateFormatter.format(rental.getUpdatedAt()));
-
-        return rentalCreateDto;
-    }
     public RentalResponseDto convertToRentalResponseDto(Rental rental) {
 
         RentalResponseDto rentalResponseDto = new RentalResponseDto();
@@ -100,9 +86,9 @@ public class RentalConverter {
         return rentalResponseDtoList;
         
     }
-    private User getOwner(Integer ownerId) throws Exception
-    {
-        return userService.getUser(ownerId);
 
+    private User getLoggedUser() throws Exception
+    {
+        return authenticationService.getLoggedUser();
     }
 }

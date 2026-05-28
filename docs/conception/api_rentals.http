@@ -1,6 +1,6 @@
 ### mockoon api
-@api_url=http://localhost:3002/api/rentals
-@jwt_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJncmVnQGdyZWcuZnIiLCJpYXQiOjE3Nzk4NzM3NTEsImV4cCI6MTc3OTkwOTc1MX0.myHTWbKIS2iQS60yCwkAy2rn5x8ph_W_eGeMadEhlkU
+@api_url=http://localhost:3001/api/rentals
+@jwt_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJncmVnQGdyZWcuZnIiLCJpYXQiOjE3Nzk5NjUzMDgsImV4cCI6MTc4MDAwMTMwOH0.sRZwShQDXUOmzjvBqTkLW8ChwOjPQ1q31B5lb7l6AxQ
 
 @jwt_invalid_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJncmVnQGdyZWcuZnIiLCJpYXQiOjE3Nzk4NzYyMDYsImV4cCI6MTc3OTg3NjIwNn0.HgOviu53ukTxZgySDdX8vzEZ7UVcL2bEo4SXGMuN67M
 
@@ -27,10 +27,35 @@ Content-Type: application/json
     "surface": 97,
     "price": 99999.97,
     "picture":"https://picsum.photos/seed/hapi/200/300",
-    "description":"maison d'APIculteur",
-    "owner_id":1
+    "description":"maison d'APIculteur"
 }
 
+### insert rental multipart/form-data
+POST {{api_url}}
+Authorization: Bearer {{jwt_token}}
+Content-Type: multipart/form-data; boundary=----
+
+------
+Content-Disposition: form-data; name="name"
+
+Test multi part from code
+------
+Content-Disposition: form-data; name="surface"
+
+38
+------
+Content-Disposition: form-data; name="price"
+
+932
+------
+Content-Disposition: form-data; name="picture"
+
+https://picsum.photos/seed/hapi/200/300
+------
+Content-Disposition: form-data; name="description"
+
+A multi part rental
+------
 ### TODO update rental
 PUT {{api_url}}/1
 Authorization: Bearer {{jwt_token}}

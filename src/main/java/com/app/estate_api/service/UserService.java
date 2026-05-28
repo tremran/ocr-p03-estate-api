@@ -22,9 +22,6 @@ public class UserService {
     @Autowired
     private UserConverter converter;
 
-    // public Optional<User> getUser(final Integer id) {
-    //     return userRepository.findById(id);
-    // }
 
     public List<User> getUserList() {
         List<User> users = new ArrayList<>();
@@ -53,6 +50,10 @@ public class UserService {
         {
             return optUser.get();
         }
+        /* TODO attraper l'exception IllegalArgumentException
+        et renvoyer une Exception UserNotFoundException
+        et la convertir en page 404 dans le globalExceptionHandler
+        */
         throw new Exception("User [" + id + "] not found");
     }
 

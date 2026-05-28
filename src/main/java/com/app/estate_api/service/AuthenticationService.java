@@ -3,10 +3,12 @@ package com.app.estate_api.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.app.estate_api.dto.UserLoginResponseDto;
+import com.app.estate_api.dto.UserLoginPostDto;
 import com.app.estate_api.dto.UserRegisterDto;
 import com.app.estate_api.exception.BadRequestException;
 import com.app.estate_api.model.User;
@@ -42,7 +44,7 @@ public class AuthenticationService {
         return userRepository.save(user);
     }
 
-    public User authenticate(UserLoginResponseDto input) {
+    public User authenticate(UserLoginPostDto input) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         input.getEmail(),
@@ -52,5 +54,12 @@ public class AuthenticationService {
 
         return userRepository.findByEmail(input.getEmail())
                 .orElseThrow();
+    }
+
+    public User getLoggedUser() throws Exception {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = (User) authentication.getPrincipal();
+
+        return currentUser;
     }
 }
